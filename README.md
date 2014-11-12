@@ -1,4 +1,6 @@
-servant-sdk-javascript-angular-service
+Servant SDK Angular Service
 ======================================
 
-An Angular Service wrapper for the Servant Javascript SDK
+This Angular Service Wraps the [Servant](https://www.servant.co) Javascript SDK and returns promises.
+
+
