@@ -1,10 +1,9 @@
 /**
  * 
  * This Angular Service Wraps the Servant Javascript SDK and returns promises
- * It's currently configured to work with v0.0.4 of the Servant Javascript SDK
+ * It's currently configured to work with v1.0.5 of the Servant Javascript SDK
  * 
  */
-
 
 angular.module('servantDevelopers').service('ServantAngularService', ['$q', function($q) {
 
@@ -13,7 +12,11 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
     }
 
     this.initialize = function(options) {
-        Servant.initialize(options);
+        var def = $q.defer();
+        Servant.initialize(options, function(status) {
+            def.resolve(status);
+        });
+        return def.promise;
     }
 
     this.connect = function() {
@@ -27,6 +30,13 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
         }, function(error) {
             def.reject(error);
         });
+        return def.promise;
+    }
+
+    this.setServant = function(servant) {
+        var def = $q.defer();
+        Servant.setServant(servant);
+        def.resolve(Servant.servant);
         return def.promise;
     }
 
@@ -51,9 +61,9 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
         return def.promise;
     }
 
-    this.saveArchetype = function(servantID, archetype, instance) {
+    this.saveArchetype = function(archetype, instance) {
         var def = $q.defer();
-        Servant.saveArchetype(servantID, archetype, instance, function(response) {
+        Servant.saveArchetype(archetype, instance, function(response) {
             def.resolve(response);
         }, function(error) {
             def.reject(error);
@@ -61,9 +71,9 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
         return def.promise;
     }
 
-    this.showArchetype = function(servantID, archetype, archetypeID) {
+    this.showArchetype = function(archetype, archetypeID) {
         var def = $q.defer();
-        Servant.showArchetype(servantID, archetype, archetypeID, function(response) {
+        Servant.showArchetype(archetype, archetypeID, function(response) {
             def.resolve(response);
         }, function(error) {
             def.reject(error);
@@ -71,9 +81,9 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
         return def.promise;
     }
 
-    this.queryArchetypes = function(servantID, archetype, criteria) {
+    this.queryArchetypes = function(archetype, criteria) {
         var def = $q.defer();
-        Servant.queryArchetypes(servantID, archetype, criteria, function(response) {
+        Servant.queryArchetypes(archetype, criteria, function(response) {
             def.resolve(response);
         }, function(error) {
             def.reject(error);
@@ -81,9 +91,9 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
         return def.promise;
     }
 
-    this.deleteArchetype = function(servantID, archetype, archetypeID) {
+    this.deleteArchetype = function(archetype, archetypeID) {
         var def = $q.defer();
-        Servant.deleteArchetype(servantID, archetype, archetypeID, function(response) {
+        Servant.deleteArchetype(archetype, archetypeID, function(response) {
             def.resolve(response);
         }, function(error) {
             def.reject(error);
