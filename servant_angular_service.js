@@ -11,13 +11,7 @@ angular.module('servantDevelopers').service('ServantAngularService', ['$q', func
         return Servant.status;
     }
 
-    this.initialize = function(options) {
-        var def = $q.defer();
-        Servant.initialize(options, function(status) {
-            def.resolve(status);
-        });
-        return def.promise;
-    }
+    // Run the initialize method outside of the Angular Service
 
     this.connect = function() {
         Servant.connect();
