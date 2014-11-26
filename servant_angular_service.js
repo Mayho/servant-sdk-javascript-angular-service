@@ -1,7 +1,7 @@
 /**
  * 
  * This Angular Service Wraps the Servant Javascript SDK and returns promises
- * It's currently configured to work with v1.0.6 of the Servant Javascript SDK
+ * It's currently configured to work with v1.0.7 of the Servant Javascript SDK
  * 
  */
 
